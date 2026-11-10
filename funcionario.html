@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Funcionários</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HEADER SEMÂNTICO -->
+    <header class="header-principal">
+        <div class="container header-content">
+            <div class="logo-area">
+                <div class="brasao">👤</div>
+                <div>
+                    <h1>Sistema Central de Registro de Funcionários</h1>
+                    <p class="subtitulo">Departamento de Recursos Humanos & Gestão de Pessoal</p>
+                </div>
+            </div>
+            <div class="relogio-sistema" id="relogio">--:--:--</div>
+        </div>
+    </header>
+
+    <!-- MAIN SEMÂNTICO -->
+    <main class="container main-content">
+        
+        <!-- SEÇÃO DO FORMULÁRIO -->
+        <section class="painel">
+            <div class="painel-header">
+                <h2>Ficha de Cadastro de Funcionário</h2>
+            </div>
+            
+            <form id="formFuncionario" class="painel-body">
+                <input type="hidden" id="funcionarioId">
+
+                <!-- 1. DADOS PESSOAIS -->
+                <fieldset>
+                    <legend>1. Dados Pessoais e Identificação</legend>
+                    <div class="grid grid-3">
+                        <div class="campo span-2">
+                            <label for="nomeCompleto">Nome Completo (Somente Letras) *</label>
+                            <input type="text" id="nomeCompleto" required placeholder="Ex: Maria Oliveira da Silva">
+                        </div>
+                        <div class="campo">
+                            <label for="cpf">CPF (Somente Números) *</label>
+                            <input type="text" id="cpf" required placeholder="Apenas dígitos" maxlength="11">
+                        </div>
+                        <div class="campo">
+                            <label for="rg">RG (Somente Números) *</label>
+                            <input type="text" id="rg" required placeholder="Apenas dígitos" maxlength="12">
+                        </div>
+                        <div class="campo">
+                            <label for="dataNascimento">Data de Nascimento *</label>
+                            <input type="text" id="dataNascimento" required placeholder="dd/mm/yyyy" maxlength="10">
+                        </div>
+                        <div class="campo">
+                            <label for="genero">Gênero *</label>
+                            <select id="genero" required>
+                                <option value="">Selecione...</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Outro">Outro</option>
+                                <option value="Prefiro não informar">Prefiro não informar</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="estadoCivil">Estado Civil</label>
+                            <select id="estadoCivil">
+                                <option value="">Selecione...</option>
+                                <option value="Solteiro(a)">Solteiro(a)</option>
+                                <option value="Casado(a)">Casado(a)</option>
+                                <option value="Divorciado(a)">Divorciado(a)</option>
+                                <option value="Viuvo(a)">Viúvo(a)</option>
+                                <option value="União Estável">União Estável</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="escolaridade">Escolaridade</label>
+                            <select id="escolaridade">
+                                <option value="">Selecione...</option>
+                                <option value="Ensino Fundamental">Ensino Fundamental</option>
+                                <option value="Ensino Médio">Ensino Médio</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Superior Incompleto">Superior Incompleto</option>
+                                <option value="Superior Completo">Superior Completo</option>
+                                <option value="Pós-Graduação / Especialização">Pós-Graduação / Especialização</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 2. CONTATO E ENDEREÇO -->
+                <fieldset>
+                    <legend>2. Contato e Endereço</legend>
+                    <div class="grid grid-3">
+                        <div class="campo">
+                            <label for="telefone">Telefone / Celular (Somente Números) *</label>
+                            <input type="text" id="telefone" required placeholder="DDD + Número" maxlength="11">
+                        </div>
+                        <div class="campo span-2">
+                            <label for="email">E-mail Corporativo / Pessoal *</label>
+                            <input type="email" id="email" required placeholder="funcionario@empresa.com.br">
+                        </div>
+                        <div class="campo">
+                            <label for="cep">CEP (Somente Números) *</label>
+                            <input type="text" id="cep" required placeholder="8 dígitos" maxlength="8">
+                        </div>
+                        <div class="campo span-2">
+                            <label for="logradouro">Endereço Completo *</label>
+                            <input type="text" id="logradouro" required placeholder="Rua, Avenida, Número, Complemento">
+                        </div>
+                        <div class="campo">
+                            <label for="bairro">Bairro *</label>
+                            <input type="text" id="bairro" required>
+                        </div>
+                        <div class="campo span-2">
+                            <label for="cidadeUf">Cidade / UF *</label>
+                            <input type="text" id="cidadeUf" required placeholder="Ex: São Paulo / SP">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 3. DADOS DE CARGO E CONTRATO -->
+                <fieldset>
+                    <legend>3. Cargo, Salário e Contrato</legend>
+                    <div class="grid grid-3">
+                        <div class="campo">
+                            <label for="matricula">Matrícula (Somente Números) *</label>
+                            <input type="text" id="matricula" required placeholder="Ex: 2026001">
+                        </div>
+                        <div class="campo">
+                            <label for="departamento">Departamento *</label>
+                            <select id="departamento" required>
+                                <option value="">Selecione...</option>
+                                <option value="Administrativo">Administrativo</option>
+                                <option value="Recursos Humanos">Recursos Humanos</option>
+                                <option value="Tecnologia da Informação">Tecnologia da Informação</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Operacional">Operacional</option>
+                                <option value="Vendas / Comercial">Vendas / Comercial</option>
+                                <option value="Saúde / Enfermagem">Saúde / Enfermagem</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="cargo">Cargo / Função *</label>
+                            <input type="text" id="cargo" required placeholder="Ex: Analista Financeiro Senior">
+                        </div>
+                        <div class="campo">
+                            <label for="dataAdmissao">Data de Admissão *</label>
+                            <input type="text" id="dataAdmissao" required placeholder="dd/mm/yyyy" maxlength="10">
+                        </div>
+                        <div class="campo">
+                            <label for="tipoContrato">Tipo de Contrato *</label>
+                            <select id="tipoContrato" required>
+                                <option value="">Selecione...</option>
+                                <option value="CLT - Tempo Indeterminado">CLT - Tempo Indeterminado</option>
+                                <option value="CLT - Determinado">CLT - Tempo Determinado</option>
+                                <option value="PJ">Pessoa Jurídica (PJ)</option>
+                                <option value="Estágio">Estágio</option>
+                                <option value="Temporário">Temporário</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="salario">Salário Base (R$) *</label>
+                            <input type="number" id="salario" step="0.01" min="0" required placeholder="0.00">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 4. CARACTERÍSTICAS DA JORNADA E TRABALHO -->
+                <fieldset>
+                    <legend>4. Características do Trabalho (Turno, Escala e Modalidade)</legend>
+                    <div class="grid grid-3">
+                        <div class="campo">
+                            <label for="turno">Turno de Trabalho *</label>
+                            <select id="turno" required>
+                                <option value="">Selecione...</option>
+                                <option value="Matutino (Manhã)">Matutino (Manhã)</option>
+                                <option value="Vespertino (Tarde)">Vespertino (Tarde)</option>
+                                <option value="Noturno (Noite)">Noturno (Noite)</option>
+                                <option value="Integral / Comercial">Integral / Comercial</option>
+                                <option value="Plantão 12x36 (Dia)">Plantão 12x36 (Dia)</option>
+                                <option value="Plantão 12x36 (Noite)">Plantão 12x36 (Noite)</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="escala">Escala de Trabalho</label>
+                            <select id="escala">
+                                <option value="">Selecione...</option>
+                                <option value="5x2 (Segunda a Sexta)">5x2 (Segunda a Sexta)</option>
+                                <option value="6x1 (Folga Rotativa)">6x1 (Folga Rotativa)</option>
+                                <option value="12x36">12x36</option>
+                                <option value="24x48">24x48</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="modalidade">Modelo de Trabalho</label>
+                            <select id="modalidade">
+                                <option value="">Selecione...</option>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Híbrido">Híbrido</option>
+                                <option value="Home Office / Remoto">Home Office / Remoto</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <label style="font-weight: bold; margin-bottom: 8px; display: block;">Benefícios Concedidos:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="benVT"> Vale-Transporte</label>
+                            <label><input type="checkbox" id="benVR"> Vale-Refeição / Alimentação</label>
+                            <label><input type="checkbox" id="benSaude"> Plano de Saúde</label>
+                            <label><input type="checkbox" id="benOdonto"> Plano Odontológico</label>
+                            <label><input type="checkbox" id="benAdicNoturno"> Adicional Noturno</label>
+                            <label><input type="checkbox" id="benInsalubridade"> Adicional Insalubridade</label>
+                        </div>
+                    </div>
+
+                    <div class="campo" style="margin-top: 15px;">
+                        <label for="observacoes">Observações / Restrições do Funcionário</label>
+                        <input type="text" id="observacoes" placeholder="Ex: Alergias, PCD, horários especiais, restrições médicas...">
+                    </div>
+                </fieldset>
+
+                <!-- BOTÕES DE AÇÃO DO FORMULÁRIO -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="btnSalvar">✓ Salvar Registro</button>
+                    <button type="button" class="btn btn-secondary" onclick="limparFormulario()">Limpar Formulário</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- SEÇÃO DE ESTATÍSTICAS E IMPORTAÇÃO/EXPORTAÇÃO -->
+        <section class="painel">
+            <div class="painel-header">
+                <h2>Gestão da Base de Dados & Estatísticas</h2>
+            </div>
+            <div class="painel-body">
+                <div class="stats-bar">
+                    <div class="stat-box">
+                        <span class="stat-numero" id="statTotalFuncionarios">0</span>
+                        <span class="stat-rotulo">Funcionários Cadastrados</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-numero" id="statFolhaTotal">R$ 0,00</span>
+                        <span class="stat-rotulo">Folha Salarial Bruta</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-numero" id="statMediaSalarial">R$ 0,00</span>
+                        <span class="stat-rotulo">Média Salarial</span>
+                    </div>
+                </div>
+
+                <div class="json-tools">
+                    <div>
+                        <strong style="color: var(--verde-escuro);">Exportar / Importar Dados (JSON):</strong>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">Gerencie o backup da sua base de dados do LocalStorage.</p>
+                    </div>
+                    <div class="json-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="exportarJSON()">⬇ Exportar JSON</button>
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('fileInputJSON').click()">⬆ Importar JSON</button>
+                        <input type="file" id="fileInputJSON" accept=".json" style="display: none;" onchange="importarJSON(event)">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE TABELA DE REGISTROS -->
+        <section class="painel">
+            <div class="painel-header">
+                <h2>Quadro de Funcionários Cadastrados</h2>
+            </div>
+            <div class="painel-body">
+                <div class="tabela-filtros">
+                    <input type="text" id="filtroBusca" placeholder="🔍 Buscar por Nome, CPF, Cargo, Turno..." onkeyup="renderizarTabela()">
+                    <button class="btn btn-danger" onclick="limparTudo()">Apagar Toda a Base</button>
+                </div>
+
+                <div class="tabela-wrapper">
+                    <table class="tabela-classica">
+                        <thead>
+                            <tr>
+                                <th>Matrícula</th>
+                                <th>Nome Completo / Cargo</th>
+                                <th>CPF</th>
+                                <th>Departamento</th>
+                                <th>Turno / Modelo</th>
+                                <th>Salário</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabela">
+                            <!-- Preenchido via Javascript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER SEMÂNTICO -->
+    <footer class="footer-principal">
+        <div class="container footer-content">
+            <p>&copy; 2026 Sistema Oficial de Gestão de Pessoal - Todos os direitos reservados.</p>
+            <p>Arquitetura em LocalStorage com Manipulação JSON | Desenvolvido no Padrão Clássico</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

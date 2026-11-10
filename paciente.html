@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Central - Portal do Paciente & Atendimento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HEADER SEMÂNTICO (PROPAGANDA & INSTITUCIONAL) -->
+    <header class="header-principal">
+        <div class="container header-content">
+            <div class="logo-area">
+                <div class="brasao">🏥</div>
+                <div>
+                    <h1>Hospital Central & Centro Médico</h1>
+                    <p class="subtitulo">Excelência, Tradição e Cuidado Humano desde 1985</p>
+                </div>
+            </div>
+            <div class="relogio-sistema" id="relogio">--:--:--</div>
+        </div>
+    </header>
+
+    <!-- BANNER DE PROPAGANDA / APRESENTAÇÃO -->
+    <section class="container" style="margin-top: 25px;">
+        <div class="painel" style="border-left: 5px solid var(--dourado);">
+            <div class="painel-body" style="text-align: center; padding: 30px;">
+                <h2 style="color: var(--verde-escuro); font-size: 1.8rem; margin-bottom: 10px;">Seu Bem-Estar em Primeiramente Lugar</h2>
+                <p style="font-size: 1.05rem; color: #444; max-width: 800px; margin: 0 auto 20px auto;">
+                    Contamos com corpo clínico especializado, pronto-socorro 24 horas, centro cirúrgico de alta tecnologia e atendimento humanizado. Cadastre-se em nosso portal para agendar consultas e exames com facilidade.
+                </p>
+                
+                <!-- GRID DE DIFERENCIAIS (PROPAGANDA) -->
+                <div class="grid grid-3" style="margin-top: 25px; text-align: left;">
+                    <div style="background: #fafcf9; padding: 15px; border: 1px solid var(--borda-cor);">
+                        <strong style="color: var(--verde-escuro); font-size: 1.1rem;">🚨 Pronto-Socorro 24h</strong>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 5px;">Atendimento emergencial completo com equipe de plantão contínuo.</p>
+                    </div>
+                    <div style="background: #fafcf9; padding: 15px; border: 1px solid var(--borda-cor);">
+                        <strong style="color: var(--verde-escuro); font-size: 1.1rem;">🔬 Exames & Diagnósticos</strong>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 5px;">Laboratório próprio e imagens de alta precisão no mesmo local.</p>
+                    </div>
+                    <div style="background: #fafcf9; padding: 15px; border: 1px solid var(--borda-cor);">
+                        <strong style="color: var(--verde-escuro); font-size: 1.1rem;">👨‍⚕️ Mais de 30 Especialidades</strong>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 5px;">Cardiologia, Pediatria, Ortopedia, Neurologia e muito mais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN SEMÂNTICO -->
+    <main class="container main-content" style="padding-top: 10px;">
+        
+        <!-- SEÇÃO DO FORMULÁRIO DE CADASTRO DO PACIENTE -->
+        <section class="painel">
+            <div class="painel-header">
+                <h2>Ficha de Cadastro do Paciente / Cliente</h2>
+            </div>
+            
+            <form id="formPaciente" class="painel-body">
+                <input type="hidden" id="pacienteId">
+
+                <!-- 1. DADOS PESSOAIS DO PACIENTE -->
+                <fieldset>
+                    <legend>1. Dados Pessoais do Paciente</legend>
+                    <div class="grid grid-3">
+                        <div class="campo span-2">
+                            <label for="nomeCompleto">Nome Completo (Somente Letras) *</label>
+                            <input type="text" id="nomeCompleto" required placeholder="Ex: Ana Maria de Oliveira">
+                        </div>
+                        <div class="campo">
+                            <label for="cpf">CPF (Somente Números) *</label>
+                            <input type="text" id="cpf" required placeholder="Apenas dígitos" maxlength="11">
+                        </div>
+                        <div class="campo">
+                            <label for="rg">RG (Somente Números) *</label>
+                            <input type="text" id="rg" required placeholder="Apenas dígitos" maxlength="12">
+                        </div>
+                        <div class="campo">
+                            <label for="dataNascimento">Data de Nascimento *</label>
+                            <input type="text" id="dataNascimento" required placeholder="dd/mm/yyyy" maxlength="10">
+                        </div>
+                        <div class="campo">
+                            <label for="genero">Gênero *</label>
+                            <select id="genero" required>
+                                <option value="">Selecione...</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Outro">Outro</option>
+                                <option value="Prefiro não informar">Prefiro não informar</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 2. CONTATO E ENDEREÇO -->
+                <fieldset>
+                    <legend>2. Contato, Endereço & Emergência</legend>
+                    <div class="grid grid-3">
+                        <div class="campo">
+                            <label for="telefone">Telefone / Celular (Somente Números) *</label>
+                            <input type="text" id="telefone" required placeholder="DDD + Número" maxlength="11">
+                        </div>
+                        <div class="campo span-2">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" required placeholder="paciente@email.com">
+                        </div>
+                        <div class="campo">
+                            <label for="cep">CEP (Somente Números) *</label>
+                            <input type="text" id="cep" required placeholder="8 dígitos" maxlength="8">
+                        </div>
+                        <div class="campo span-2">
+                            <label for="logradouro">Endereço Completo *</label>
+                            <input type="text" id="logradouro" required placeholder="Rua, Avenida, Número, Ap">
+                        </div>
+                        <div class="campo">
+                            <label for="bairro">Bairro *</label>
+                            <input type="text" id="bairro" required>
+                        </div>
+                        <div class="campo span-2">
+                            <label for="cidadeUf">Cidade / UF *</label>
+                            <input type="text" id="cidadeUf" required placeholder="Ex: São Paulo / SP">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 3. CONVÊNIO E DADOS MÉDICOS -->
+                <fieldset>
+                    <legend>3. Plano de Saúde & Atendimento</legend>
+                    <div class="grid grid-3">
+                        <div class="campo">
+                            <label for="tipoAtendimento">Tipo de Atendimento *</label>
+                            <select id="tipoAtendimento" required>
+                                <option value="">Selecione...</option>
+                                <option value="Particular">Particular</option>
+                                <option value="Convênio / Plano de Saúde">Convênio / Plano de Saúde</option>
+                                <option value="SUS / Encaminhamento">SUS / Encaminhamento</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="nomeConvenio">Nome do Convênio (se houver)</label>
+                            <input type="text" id="nomeConvenio" placeholder="Ex: Unimed, Bradesco, Amil...">
+                        </div>
+                        <div class="campo">
+                            <label for="carteirinha">Nº da Carteirinha (Somente Números)</label>
+                            <input type="text" id="carteirinha" placeholder="Apenas dígitos" maxlength="20">
+                        </div>
+                        <div class="campo">
+                            <label for="especialidadeInteresse">Especialidade Desejada *</label>
+                            <select id="especialidadeInteresse" required>
+                                <option value="">Selecione...</option>
+                                <option value="Clínica Geral">Clínica Geral</option>
+                                <option value="Cardiologia">Cardiologia</option>
+                                <option value="Ortopedia">Ortopedia</option>
+                                <option value="Pediatria">Pediatria</option>
+                                <option value="Ginecologia / Obstetrícia">Ginecologia / Obstetrícia</option>
+                                <option value="Dermatologia">Dermatologia</option>
+                                <option value="Neurologia">Neurologia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="campo" style="margin-top: 15px;">
+                        <label for="observacoes">Alergias, Condições Prévias ou Histórico Médico</label>
+                        <input type="text" id="observacoes" placeholder="Ex: Alergia a Penicilina, Diabético, Hipertenso...">
+                    </div>
+                </fieldset>
+
+                <!-- BOTÕES DE AÇÃO -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="btnSalvar">✓ Finalizar Cadastro</button>
+                    <button type="button" class="btn btn-secondary" onclick="limparFormulario()">Limpar Formulário</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- SEÇÃO DE REGISTROS DO PACIENTE -->
+        <section class="painel">
+            <div class="painel-header">
+                <h2>Pacientes Cadastrados no Sistema</h2>
+            </div>
+            <div class="painel-body">
+                <div class="tabela-filtros">
+                    <input type="text" id="filtroBusca" placeholder="🔍 Buscar Paciente por Nome, CPF, Convênio..." onkeyup="renderizarTabela()">
+                    <button class="btn btn-danger" onclick="limparTudo()">Apagar Base de Pacientes</button>
+                </div>
+
+                <div class="tabela-wrapper">
+                    <table class="tabela-classica">
+                        <thead>
+                            <tr>
+                                <th>Nome Completo / CPF</th>
+                                <th>Data Nasc.</th>
+                                <th>Telefone / E-mail</th>
+                                <th>Atendimento / Convênio</th>
+                                <th>Especialidade</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabela">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER SEMÂNTICO -->
+    <footer class="footer-principal">
+        <div class="container footer-content">
+            <p>&copy; 2026 Hospital Central & Centro Médico - Atendimento ao Cliente</p>
+            <p>Sua saúde em boas mãos | Cadastro Seguro em Ambiente Protegido</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

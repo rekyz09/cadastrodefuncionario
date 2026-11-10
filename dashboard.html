@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Central - Painel de Testes QA (Quality Assurance)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS DO PAINEL DE QA */
+        .qa-status-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fafcf9;
+            border: 1px solid var(--borda-cor);
+            margin-bottom: 20px;
+        }
+
+        .badge-qa {
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-pass {
+            background-color: #2d6a4f;
+            color: #ffffff;
+        }
+
+        .badge-fail {
+            background-color: #8b0000;
+            color: #ffffff;
+        }
+
+        .tabela-qa td {
+            vertical-align: middle;
+        }
+
+        .log-code {
+            font-family: monospace;
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER SEMÂNTICO -->
+    <header class="header-principal">
+        <div class="container header-content">
+            <div class="logo-area">
+                <div class="brasao">🧪</div>
+                <div>
+                    <h1>Hospital Central - Módulo de Qualidade & QA</h1>
+                    <p class="subtitulo">Suíte de Validação Automatizada de Regras de Negócio</p>
+                </div>
+            </div>
+            <div class="relogio-sistema" id="relogio">--:--:--</div>
+        </div>
+    </header>
+
+    <!-- BANNER & CONTROLES DE EXECUÇÃO DE TESTE -->
+    <div class="container" style="margin-top: 25px;">
+        <div class="painel">
+            <div class="painel-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>Suíte de Teste Funcional</h2>
+                <button class="btn btn-primary" onclick="executarBateriaDeTestes()">▶ Executar Todos os Testes QA</button>
+            </div>
+            <div class="painel-body">
+                <div class="qa-status-card">
+                    <div>
+                        <strong style="color: var(--verde-escuro); font-size: 1.1rem;">Resumo da Homologação</strong>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">Validação de entradas de formulário, máscaras dinâmicas e restrições do sistema.</p>
+                    </div>
+                    <div style="display: flex; gap: 15px; text-align: center;">
+                        <div>
+                            <span class="stat-numero" id="qaTotal">0</span>
+                            <span class="stat-rotulo">Testes</span>
+                        </div>
+                        <div>
+                            <span class="stat-numero" style="color: #2d6a4f;" id="qaPassados">0</span>
+                            <span class="stat-rotulo">Passaram</span>
+                        </div>
+                        <div>
+                            <span class="stat-numero" style="color: #8b0000;" id="qaFalhados">0</span>
+                            <span class="stat-rotulo">Falharam</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ELEMENTOS OCULTOS PARA TESTE DOM -->
+                <div style="display: none;">
+                    <input type="text" id="nomeCompleto">
+                    <input type="text" id="cpf">
+                    <input type="text" id="rg">
+                    <input type="text" id="dataNascimento">
+                    <input type="text" id="dataAdmissao">
+                    <input type="text" id="telefone">
+                    <input type="text" id="cep">
+                    <input type="text" id="matricula">
+                    <input type="text" id="carteirinha">
+                </div>
+
+                <!-- TABELA DE RESULTADOS DO TESTE -->
+                <div class="tabela-wrapper">
+                    <table class="tabela-classica tabela-qa">
+                        <thead>
+                            <tr>
+                                <th>ID / Caso de Teste</th>
+                                <th>Entrada Simulada</th>
+                                <th>Resultado Esperado</th>
+                                <th>Resultado Obtido</th>
+                                <th>Status QA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaResultadosQA">
+                            <!-- Preenchido via Javascript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SEMÂNTICO -->
+    <footer class="footer-principal">
+        <div class="container footer-content">
+            <p>&copy; 2026 Hospital Central - Departamento de Engenharia de Software e Garantia de Qualidade (QA)</p>
+            <p>Relatório de Validação de Requisitos Não-Funcionais e Validações de Entrada</p>
+        </div>
+    </footer>
+
+    <!-- CARREGA O SCRIPT DO SISTEMA E O MOTOR DE TESTES QA -->
+    <script src="script.js"></script>
+    <script src="scriptqa.js"></script>
+</body>
+</html>
