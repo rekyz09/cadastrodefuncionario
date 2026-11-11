@@ -429,11 +429,32 @@ function limparTudo() {
     }
 }
 
-// ATUALIZAR ESTATÍSTICAS
+// ATUALIZAR ESTATÍSTICAS E CÁLCULO DE FOLHA SALARIAL
 function atualizarEstatisticas() {
     const lista = getDados();
+    
+    // 1. Atualiza Total de Cadastros
     const elTotal = document.getElementById('statTotalFuncionarios');
     if (elTotal) elTotal.textContent = lista.length;
+
+    // 2. Calcula Folha Total e Média (para os quadros de métricas)
+    const elFolhaTotal = document.getElementById('statFolhaTotal');
+    const elMediaSalarial = document.getElementById('statMediaSalarial');
+
+    if (elFolhaTotal || elMediaSalarial) {
+        const totalSalarios = lista.reduce((acumulador, item) => {
+            return acumulador + (parseFloat(item.salario) || 0);
+        }, 0);
+
+        const mediaSalarial = lista.length > 0 ? (totalSalarios / lista.length) : 0;
+
+        if (elFolhaTotal) {
+            elFolhaTotal.textContent = totalSalarios.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+        if (elMediaSalarial) {
+            elMediaSalarial.textContent = mediaSalarial.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+    }
 }
 
 // EXPORTAR DADOS EM FORMATO JSON (SUPORTE CT-23)

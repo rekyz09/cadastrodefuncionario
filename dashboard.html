@@ -47,6 +47,26 @@
             font-size: 0.85rem;
             color: #333;
         }
+
+        .tag-tipo {
+            font-weight: bold;
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .tag-requisito {
+            color: #2d6a4f;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+        }
+
+        .tag-bloqueio {
+            color: #b71c1c;
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +125,7 @@
                             <thead>
                                 <tr>
                                     <th>ID / Caso de Teste</th>
+                                    <th>Categoria</th>
                                     <th>Entrada Simulada</th>
                                     <th>Resultado Esperado</th>
                                     <th>Resultado Obtido</th>
@@ -130,7 +151,7 @@
                     <input type="text" id="cep" maxlength="8">
                     <input type="text" id="matricula">
                     <input type="text" id="carteirinha">
-                    <input type="number" id="salario" step="0.01" min="0">
+                    <input type="number" id="salario">
                 </div>
             </div>
         </div>
@@ -142,7 +163,6 @@
             
             <p style="margin: 0;">&copy; 2026 Hospital Central - Departamento de Engenharia de Software e Garantia de Qualidade (QA)</p>
             
-            <!-- APENAS OS DOIS BOTÕES DE SISTEMA -->
             <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 5px;">
                 <a href="funcionario.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none; border-radius: 3px; display: inline-flex; align-items: center; gap: 5px;">
                     👨‍💼 Área do Funcionário
