@@ -332,66 +332,6 @@ legend {
     border-top: 3px solid var(--dourado);
     font-size: 0.85rem;
 }
- .qa-status-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: #fafcf9;
-            border: 1px solid var(--borda-cor);
-            margin-bottom: 20px;
-        }
-
-        .badge-qa {
-            padding: 4px 10px;
-            border-radius: 3px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-pass {
-            background-color: #2d6a4f;
-            color: #ffffff;
-        }
-
-        .badge-fail {
-            background-color: #8b0000;
-            color: #ffffff;
-        }
-
-        .tabela-qa td {
-            vertical-align: middle;
-        }
-
-        .log-code {
-            font-family: monospace;
-            background-color: #eee;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.85rem;
-            color: #333;
-        }
-
-        .tag-tipo {
-            font-weight: bold;
-            font-size: 0.8rem;
-            padding: 2px 6px;
-            border-radius: 3px;
-            display: inline-block;
-        }
-
-        .tag-requisito {
-            color: #2d6a4f;
-            background-color: #e8f5e9;
-            border: 1px solid #c8e6c9;
-        }
-
-        .tag-bloqueio {
-            color: #b71c1c;
-            background-color: #ffebee;
-            border: 1px solid #ffcdd2;
-        }
 
 .footer-content p {
     margin: 4px 0;
