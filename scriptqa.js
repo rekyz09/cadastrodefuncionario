@@ -136,7 +136,7 @@ function renderizarTabelaQA(lista) {
             </td>
             <td>
                 <span class="badge-qa ${item.aprovado ? 'badge-pass' : 'badge-fail'}">
-                    ${item.aprovado ? '✓ PASSOU' : '✗ FALHOU'}
+                    ${item.aprovado ? 'PASSOU' : 'FALHOU'}
                 </span>
             </td>
         `;
