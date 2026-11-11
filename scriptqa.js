@@ -1,29 +1,46 @@
-// SUÍTE AUTOMATIZADA DE TESTES QA (24 CASOS DE TESTE) - HOSPITAL CENTRAL
+// SUÍTE AUTOMATIZADA DE TESTES QA (24 CASOS DE TESTE COM BÔNUS) - HOSPITAL CENTRAL
+
+let resultadosGlobaisQA = [];
 
 function simularEntradaNoCampo(elementId, textoSimulado) {
     const input = document.getElementById(elementId);
     if (!input) return '';
     
-    // Respeita o limite do atributo maxlength do HTML, se existir
     if (input.maxLength && input.maxLength > 0) {
         textoSimulado = textoSimulado.slice(0, input.maxLength);
     }
 
     input.value = textoSimulado;
     
-    // Dispara o evento 'input' para acionar as máscaras e validações do script.js
     const event = new Event('input', { bubbles: true });
     input.dispatchEvent(event);
     
     return input.value;
 }
 
+// BÔNUS: CAPTURA E EXIBIÇÃO DO NAVEGADOR
+function registrarNavegador() {
+    const elNav = document.getElementById('infoNavegador');
+    if (elNav) {
+        const ua = navigator.userAgent;
+        let nomeNav = "Navegador Desconhecido";
+        
+        if (ua.indexOf("Chrome") > -1 && ua.indexOf("Edg") === -1) nomeNav = "Google Chrome";
+        else if (ua.indexOf("Edg") > -1) nomeNav = "Microsoft Edge";
+        else if (ua.indexOf("Firefox") > -1) nomeNav = "Mozilla Firefox";
+        else if (ua.indexOf("Safari") > -1 && ua.indexOf("Chrome") === -1) nomeNav = "Apple Safari";
+        
+        elNav.textContent = `${nomeNav} (${navigator.platform})`;
+    }
+}
+
 function executarBateriaDeTestes() {
-    // REVELA A ÁREA DE TESTES AO CLICAR NO BOTÃO
     const elConteudoQA = document.getElementById('conteudoQA');
     if (elConteudoQA) {
         elConteudoQA.style.display = 'block';
     }
+
+    registrarNavegador();
 
     const casosDeTeste = [
         // ==========================================
@@ -59,10 +76,7 @@ function executarBateriaDeTestes() {
         { id: 'CT-24', campo: 'salario', tipo: 'BLOQUEIO', descricao: 'Salário - Validação de Entrada Positiva', entrada: '5000.00', esperado: '5000.00', validacao: (o) => parseFloat(o) >= 0 }
     ];
 
-    const tabela = document.getElementById('tabelaResultadosQA');
-    if (!tabela) return;
-    
-    tabela.innerHTML = '';
+    resultadosGlobaisQA = [];
     let passados = 0;
     let falhados = 0;
 
@@ -73,31 +87,109 @@ function executarBateriaDeTestes() {
         if (aprovado) passados++;
         else falhados++;
 
-        const isRequisito = ct.tipo === 'REQUISITO';
+        resultadosGlobaisQA.push({
+            ...ct,
+            obtido: resultadoObtido || 'Sucesso',
+            aprovado: aprovado
+        });
+    });
+
+    // ATUALIZA CONTADORES E GRÁFICO CSS BÔNUS
+    const elTotal = document.getElementById('qaTotal');
+    const elPassados = document.getElementById('qaPassados');
+    const elFalhados = document.getElementById('qaFalhados');
+    const elChartFill = document.getElementById('chartPassFill');
+    const elChartLegend = document.getElementById('chartLegend');
+
+    const total = casosDeTeste.length;
+    const porcPass = total > 0 ? Math.round((passados / total) * 100) : 0;
+
+    if (elTotal) elTotal.textContent = total;
+    if (elPassados) elPassados.textContent = passados;
+    if (elFalhados) elFalhados.textContent = falhados;
+    if (elChartFill) elChartFill.style.width = porcPass + '%';
+    if (elChartLegend) elChartLegend.textContent = `${porcPass}% Passaram (${passados}/${total})`;
+
+    renderizarTabelaQA(resultadosGlobaisQA);
+}
+
+// RENDERIZAÇÃO DA TABELA COM SUPORTE A FILTROS E MODAL DE EVIDÊNCIA
+function renderizarTabelaQA(lista) {
+    const tabela = document.getElementById('tabelaResultadosQA');
+    if (!tabela) return;
+    
+    tabela.innerHTML = '';
+
+    lista.forEach(item => {
+        const isRequisito = item.tipo === 'REQUISITO';
         const tagClass = isRequisito ? 'tag-requisito' : 'tag-bloqueio';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><strong>${ct.id}</strong><br><small style="color:#666;">${ct.descricao}</small></td>
-            <td><span class="tag-tipo ${tagClass}">${ct.tipo}</span></td>
-            <td><span class="log-code">${ct.entrada}</span></td>
-            <td><span class="log-code">${ct.esperado}</span></td>
-            <td><span class="log-code">${resultadoObtido || 'Sucesso'}</span></td>
+            <td><strong>${item.id}</strong><br><small style="color:#666;">${item.descricao}</small></td>
+            <td><span class="tag-tipo ${tagClass}">${item.tipo}</span></td>
+            <td><span class="log-code">${item.entrada}</span></td>
+            <td><span class="log-code">${item.esperado}</span></td>
+            <td><span class="log-code">${item.obtido}</span></td>
             <td>
-                <span class="badge-qa ${aprovado ? 'badge-pass' : 'badge-fail'}">
-                    ${aprovado ? '✓ PASSOU' : '✗ FALHOU'}
+                <button class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 2px 6px;" onclick="abrirEvidencia('${item.id}')">📷 Ver Print</button>
+            </td>
+            <td>
+                <span class="badge-qa ${item.aprovado ? 'badge-pass' : 'badge-fail'}">
+                    ${item.aprovado ? '✓ PASSED' : '✗ FAILED'}
                 </span>
             </td>
         `;
         tabela.appendChild(tr);
     });
+}
 
-    // ATUALIZA CONTADORES NO PAINEL DE QA
-    const elTotal = document.getElementById('qaTotal');
-    const elPassados = document.getElementById('qaPassados');
-    const elFalhados = document.getElementById('qaFalhados');
+// BÔNUS: APLICAÇÃO DOS FILTROS POR TIPO E POR STATUS
+function aplicarFiltrosQA() {
+    const filtroTipo = document.getElementById('filtroTipo').value;
+    const filtroStatus = document.getElementById('filtroStatus').value;
 
-    if (elTotal) elTotal.textContent = casosDeTeste.length;
-    if (elPassados) elPassados.textContent = passados;
-    if (elFalhados) elFalhados.textContent = falhados;
+    const filtrados = resultadosGlobaisQA.filter(item => {
+        const matchTipo = (filtroTipo === 'TODOS') || (item.tipo === filtroTipo);
+        const matchStatus = (filtroStatus === 'TODOS') || 
+                            (filtroStatus === 'PASSED' && item.aprovado) || 
+                            (filtroStatus === 'FAILED' && !item.aprovado);
+        return matchTipo && matchStatus;
+    });
+
+    renderizarTabelaQA(filtrados);
+}
+
+// BÔNUS: ABRIR E FECHAR MODAL DE EVIDÊNCIA
+function abrirEvidencia(idTeste) {
+    const teste = resultadosGlobaisQA.find(t => t.id === idTeste);
+    if (!teste) return;
+
+    const modal = document.getElementById('modalEvidencia');
+    const titulo = document.getElementById('modalTitulo');
+    const corpo = document.getElementById('modalCorpoEvidencia');
+
+    if (modal && titulo && corpo) {
+        titulo.textContent = `Evidência - ${teste.id}: ${teste.descricao}`;
+        corpo.innerHTML = `
+            <div style="text-align: left; font-size: 0.85rem; color: #333;">
+                <p><strong>Navegador Executado:</strong> ${document.getElementById('infoNavegador').textContent}</p>
+                <p><strong>Entrada de Teste:</strong> <code class="log-code">${teste.entrada}</code></p>
+                <p><strong>Resultado Esperado:</strong> <code class="log-code">${teste.esperado}</code></p>
+                <p><strong>Resultado Sanitizado/Obtido:</strong> <code class="log-code">${teste.obtido}</code></p>
+            </div>
+            <div style="margin-top: 15px; border: 1px solid #ddd; padding: 20px; background: #fff; font-family: monospace;">
+                [ SIMULAÇÃO DE TELA DE EVIDÊNCIA ]<br><br>
+                Campo ID: #${teste.campo || 'DOM'}<br>
+                Valor Renderizado no DOM: "${teste.obtido}"<br>
+                Status QA: ${teste.aprovado ? 'PASSED ✓' : 'FAILED ✗'}
+            </div>
+        `;
+        modal.style.display = 'flex';
+    }
+}
+
+function fecharModalEvidencia() {
+    const modal = document.getElementById('modalEvidencia');
+    if (modal) modal.style.display = 'none';
 }
