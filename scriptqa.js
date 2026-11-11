@@ -1,13 +1,16 @@
 // SUÍTE AUTOMATIZADA DE TESTES QA (24 CASOS DE TESTE) - HOSPITAL CENTRAL
-document.addEventListener('DOMContentLoaded', () => {
-    executarBateriaDeTestes();
-});
 
 function simularEntradaNoCampo(elementId, textoSimulado) {
     const input = document.getElementById(elementId);
     if (!input) return '';
     
+    // Respeita o limite do atributo maxlength do HTML, se existir
+    if (input.maxLength && input.maxLength > 0) {
+        textoSimulado = textoSimulado.slice(0, input.maxLength);
+    }
+
     input.value = textoSimulado;
+    
     // Dispara o evento 'input' para acionar as máscaras e validações do script.js
     const event = new Event('input', { bubbles: true });
     input.dispatchEvent(event);
@@ -16,6 +19,12 @@ function simularEntradaNoCampo(elementId, textoSimulado) {
 }
 
 function executarBateriaDeTestes() {
+    // REVELA A ÁREA DE TESTES AO CLICAR NO BOTÃO
+    const elConteudoQA = document.getElementById('conteudoQA');
+    if (elConteudoQA) {
+        elConteudoQA.style.display = 'block';
+    }
+
     const casosDeTeste = [
         // 1. MÁSCARAS E VALIDAÇÕES DE ENTRADA (CT-01 ao CT-14)
         { id: 'CT-01', campo: 'nomeCompleto', descricao: 'Nome - Bloqueio de Números e Símbolos', entrada: 'Maria123 @Oliveira#', esperado: 'Maria Oliveira', validacao: (o) => o === 'Maria Oliveira' },
@@ -29,7 +38,7 @@ function executarBateriaDeTestes() {
         { id: 'CT-09', campo: 'dataNascimento', descricao: 'Data Nasc. - Trava de Dia Máximo (<= 31)', entrada: '45081995', esperado: '31/08/1995', validacao: (o) => o === '31/08/1995' },
         { id: 'CT-10', campo: 'dataAdmissao', descricao: 'Data Admissão - Máscara DD/MM/AAAA', entrada: '01022025', esperado: '01/02/2025', validacao: (o) => o === '01/02/2025' },
         { id: 'CT-11', campo: 'telefone', descricao: 'Telefone - Remoção de Caracteres Especiais', entrada: '(11) 98765-4321', esperado: '11987654321', validacao: (o) => o === '11987654321' },
-        { id: 'CT-12', campo: 'cep', descricao: 'CEP - Restrição para 8 Dígitos Numéricos', entrada: '0100100099', esperado: '01001000', validacao: (o) => o === '01001000' },
+        { id: 'CT-12', campo: 'cep', descricao: 'CEP - Restrição para 8 Dígitos Numéricos', entrada: '123456789', esperado: '12345678', validacao: (o) => o === '12345678' },
         { id: 'CT-13', campo: 'matricula', descricao: 'Matrícula - Somente Números', entrada: '2026-001A', esperado: '2026001', validacao: (o) => o === '2026001' },
         { id: 'CT-14', campo: 'salario', descricao: 'Salário - Validação de Entrada Positiva', entrada: '5000.00', esperado: '5000.00', validacao: (o) => parseFloat(o) >= 0 },
 

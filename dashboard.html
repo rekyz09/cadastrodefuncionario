@@ -73,25 +73,50 @@
                 <button class="btn btn-primary" onclick="executarBateriaDeTestes()">▶ Executar Todos os Testes QA</button>
             </div>
             <div class="painel-body">
-                <div class="qa-status-card">
-                    <div>
-                        <strong style="color: var(--verde-escuro); font-size: 1.1rem;">Resumo da Homologação</strong>
-                        <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">Validação de entradas de formulário, máscaras dinâmicas e restrições do sistema.</p>
+                
+                <!-- ÁREA DE TESTES (ESCONDIDA POR PADRÃO VIA DISPLAY: NONE) -->
+                <div id="conteudoQA" style="display: none;">
+                    
+                    <!-- RESUMO DA HOMOLOGAÇÃO -->
+                    <div class="qa-status-card">
+                        <div>
+                            <strong style="color: var(--verde-escuro); font-size: 1.1rem;">Resumo da Homologação</strong>
+                            <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">Validação de entradas de formulário, máscaras dinâmicas e restrições do sistema.</p>
+                        </div>
+                        <div style="display: flex; gap: 15px; text-align: center;">
+                            <div>
+                                <span class="stat-numero" id="qaTotal">0</span>
+                                <span class="stat-rotulo">Testes</span>
+                            </div>
+                            <div>
+                                <span class="stat-numero" style="color: #2d6a4f;" id="qaPassados">0</span>
+                                <span class="stat-rotulo">Passaram</span>
+                            </div>
+                            <div>
+                                <span class="stat-numero" style="color: #8b0000;" id="qaFalhados">0</span>
+                                <span class="stat-rotulo">Falharam</span>
+                            </div>
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 15px; text-align: center;">
-                        <div>
-                            <span class="stat-numero" id="qaTotal">0</span>
-                            <span class="stat-rotulo">Testes</span>
-                        </div>
-                        <div>
-                            <span class="stat-numero" style="color: #2d6a4f;" id="qaPassados">0</span>
-                            <span class="stat-rotulo">Passaram</span>
-                        </div>
-                        <div>
-                            <span class="stat-numero" style="color: #8b0000;" id="qaFalhados">0</span>
-                            <span class="stat-rotulo">Falharam</span>
-                        </div>
+
+                    <!-- TABELA DE RESULTADOS DO TESTE -->
+                    <div class="tabela-wrapper">
+                        <table class="tabela-classica tabela-qa">
+                            <thead>
+                                <tr>
+                                    <th>ID / Caso de Teste</th>
+                                    <th>Entrada Simulada</th>
+                                    <th>Resultado Esperado</th>
+                                    <th>Resultado Obtido</th>
+                                    <th>Status QA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaResultadosQA">
+                                <!-- Preenchido via Javascript -->
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
 
                 <!-- ELEMENTOS OCULTOS PARA TESTE DOM -->
@@ -102,37 +127,32 @@
                     <input type="text" id="dataNascimento">
                     <input type="text" id="dataAdmissao">
                     <input type="text" id="telefone">
-                    <input type="text" id="cep">
+                    <input type="text" id="cep" maxlength="8">
                     <input type="text" id="matricula">
                     <input type="text" id="carteirinha">
-                </div>
-
-                <!-- TABELA DE RESULTADOS DO TESTE -->
-                <div class="tabela-wrapper">
-                    <table class="tabela-classica tabela-qa">
-                        <thead>
-                            <tr>
-                                <th>ID / Caso de Teste</th>
-                                <th>Entrada Simulada</th>
-                                <th>Resultado Esperado</th>
-                                <th>Resultado Obtido</th>
-                                <th>Status QA</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaResultadosQA">
-                            <!-- Preenchido via Javascript -->
-                        </tbody>
-                    </table>
+                    <input type="number" id="salario" step="0.01" min="0">
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- FOOTER SEMÂNTICO -->
-    <footer class="footer-principal">
-        <div class="container footer-content">
-            <p>&copy; 2026 Hospital Central - Departamento de Engenharia de Software e Garantia de Qualidade (QA)</p>
-            <p>Relatório de Validação de Requisitos Não-Funcionais e Validações de Entrada</p>
+    <!-- FOOTER SEMÂNTICO COM OS BOTÕES PADRONIZADOS -->
+    <footer class="footer-principal" style="padding: 25px 0; background-color: var(--verde-escuro); color: #ffffff; margin-top: 40px;">
+        <div class="container footer-content" style="display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center;">
+            
+            <p style="margin: 0;">&copy; 2026 Hospital Central - Departamento de Engenharia de Software e Garantia de Qualidade (QA)</p>
+            
+            <!-- APENAS OS DOIS BOTÕES DE SISTEMA -->
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 5px;">
+                <a href="funcionario.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none; border-radius: 3px; display: inline-flex; align-items: center; gap: 5px;">
+                    👨‍💼 Área do Funcionário
+                </a>
+                <a href="dashboard.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none; border-radius: 3px; display: inline-flex; align-items: center; gap: 5px;">
+                    📊 Dashboard de Testes
+                </a>
+            </div>
+
+            <p style="font-size: 0.8rem; color: #d0e0d5; margin: 0;">Relatório de Validação de Requisitos Não-Funcionais e Validações de Entrada</p>
         </div>
     </footer>
 

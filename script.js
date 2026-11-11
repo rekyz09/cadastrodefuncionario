@@ -435,3 +435,39 @@ function atualizarEstatisticas() {
     const elTotal = document.getElementById('statTotalFuncionarios');
     if (elTotal) elTotal.textContent = lista.length;
 }
+
+// EXPORTAR DADOS EM FORMATO JSON (SUPORTE CT-23)
+function exportarJSON() {
+    const dados = getDados();
+    const jsonStr = JSON.stringify(dados, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `backup_base_dados_${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// IMPORTAR DADOS DE UM ARQUIVO JSON (SUPORTE CT-24)
+function importarJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const dados = JSON.parse(e.target.result);
+            if (Array.isArray(dados)) {
+                saveDados(dados);
+                alert('Base de dados importada com sucesso!');
+            } else {
+                alert('Formato de JSON inválido! Esperado uma lista de registros.');
+            }
+        } catch (err) {
+            alert('Erro ao ler o arquivo JSON: ' + err.message);
+        }
+    };
+    reader.readAsText(file);
+}
