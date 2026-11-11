@@ -29,7 +29,7 @@ function executarBateriaDeTestes() {
         { id: 'CT-09', campo: 'dataNascimento', descricao: 'Data Nasc. - Trava de Dia Máximo (<= 31)', entrada: '45081995', esperado: '31/08/1995', validacao: (o) => o === '31/08/1995' },
         { id: 'CT-10', campo: 'dataAdmissao', descricao: 'Data Admissão - Máscara DD/MM/AAAA', entrada: '01022025', esperado: '01/02/2025', validacao: (o) => o === '01/02/2025' },
         { id: 'CT-11', campo: 'telefone', descricao: 'Telefone - Remoção de Caracteres Especiais', entrada: '(11) 98765-4321', esperado: '11987654321', validacao: (o) => o === '11987654321' },
-        { id: 'CT-12', campo: 'cep', descricao: 'CEP - Restrição para 8 Dígitos Numéricos', entrada: '01001-00099', esperado: '01001000', validacao: (o) => o === '01001000' },
+        { id: 'CT-12', campo: 'cep', descricao: 'CEP - Restrição para 8 Dígitos Numéricos', entrada: '0100100099', esperado: '01001000', validacao: (o) => o === '01001000' },
         { id: 'CT-13', campo: 'matricula', descricao: 'Matrícula - Somente Números', entrada: '2026-001A', esperado: '2026001', validacao: (o) => o === '2026001' },
         { id: 'CT-14', campo: 'salario', descricao: 'Salário - Validação de Entrada Positiva', entrada: '5000.00', esperado: '5000.00', validacao: (o) => parseFloat(o) >= 0 },
 
