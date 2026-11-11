@@ -46,7 +46,7 @@ function executarBateriaDeTestes() {
         // ==========================================
         // PARTE 1: TODOS OS REQUISITOS (CT-01 ao CT-14)
         // ==========================================
-        { id: 'CT-01', campo: 'cpf', tipo: 'REQUISITO', descricao: 'CPF - Filtro de Limpeza de Pontuação', entrada: '123.456.789-00', esperado: '12345678900', validacao: (o) => o === '12345678900' },
+        { id: 'CT-01', campo: 'cpf', tipo: 'REQUISITO', descricao: 'CPF - Filtro de Limpeza de Pontuação', entrada: '123.456.789-00', esperado: '12345678901', validacao: (o) => o === '12345678900' },
         { id: 'CT-02', campo: 'rg', tipo: 'REQUISITO', descricao: 'RG - Aceita Números e Letra X (Maiúscula)', entrada: '12.345.678-Xabc#', esperado: '12345678X', validacao: (o) => o === '12345678X' },
         { id: 'CT-03', campo: 'dataNascimento', tipo: 'REQUISITO', descricao: 'Data Nasc. - Formatação Automática DD/MM/AAAA', entrada: '14051998', esperado: '14/05/1998', validacao: (o) => o === '14/05/1998' },
         { id: 'CT-04', campo: 'dataAdmissao', tipo: 'REQUISITO', descricao: 'Data Admissão - Máscara DD/MM/AAAA', entrada: '01022025', esperado: '01/02/2025', validacao: (o) => o === '01/02/2025' },
