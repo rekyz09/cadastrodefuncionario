@@ -23,7 +23,7 @@ function iniciarRelogio() {
     if (elRelogio) {
         setInterval(() => {
             const agora = new Date();
-            elRelogio.textContent = agora.toLocaleTimeString('pt-BR');
+            elRelogio.textContent = `${agora.toLocaleDateString('pt-BR')} ${agora.toLocaleTimeString('pt-BR')}`;
         }, 1000);
     }
 }
